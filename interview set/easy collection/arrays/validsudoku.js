@@ -1,30 +1,65 @@
 var isValidSudoku = function(board) {
-    var x,y,n;
-    for(y=0;y<board.length;y++){
-        x=0;
-        while(x<board[y].length-1){
-            for(n=x+1;n<board[y].length;n++){
-                if(board[y][x] !== '.' && board[y][x] === board[y][n]){
+    let y=0;
+    while(y<board.length){
+        let num=[]
+        for(let x =0; x<board[y].length; x++){
+            num.push(parseInt(board[y][x]));
+        }
+        checker(num)
+        if(!checker(num)){
+            return false
+        }
+        y++
+        
+    }
+    let x=0;
+    while(x<board.length){
+        let num=[]
+        for(let y=0; y<board.length; y++){
+            num.push(parseInt(board[y][x]))
+        }
+        checker(num)
+        if(!checker(num)){
+            return false
+        }
+        x++
+        
+    }
+
+
+    function checker(num){
+        let i = [];
+        for(z=0;z<num.length;z++){
+            if(!isNaN(num)){
+                i.push(num)
+            }
+        i.sort((a,b) => a-b)
+        if(i.length>1){
+            for(let j = 0; j<i.length-1;j++){
+                if(i[j] == i[j+1]){
                     return false
                 }
             }
-            console.log('row' + y + 'clear')
-            x++
+            }
         }
-        x=0;
-        for
+        return true
     }
+
+    return true
 };
 
-board = 
-[["8","3",".",".","7",".",".",".","."]
-,["6",".",".","1","9","5",".",".","."]
-,[".","9","8",".",".",".",".","6","."]
-,["8",".",".",".","6",".",".",".","3"]
-,["4",".",".","8",".","3",".",".","1"]
-,["7",".",".",".","2",".",".",".","6"]
-,[".","6",".",".",".",".","2","8","."]
-,[".",".",".","4","1","9",".",".","5"]
-,[".",".",".",".","8",".",".","7","9"]]
+
+board=[
+
+[".",".",".",".","5",".",".","1","."],
+[".","4",".","3",".",".",".",".","."],
+[".",".",".",".",".","3",".",".","."],
+["8",".",".",".",".",".",".","2","."],
+[".",".","2",".","7",".",".",".","1"],
+[".","1","5",".",".",".",".",".","."],
+[".",".",".",".",".","2",".",".","."],
+[".","2",".","9",".",".",".",".","."],
+[".",".","4",".",".",".",".","1","1"]]
 
 console.log(isValidSudoku(board))
+// console.log(parseInt(board[0][0]))
